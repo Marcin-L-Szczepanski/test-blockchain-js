@@ -12,7 +12,16 @@ class Block {
   calculateHash() {
     return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();
   }
+  
+  mineBlock(difficulty) {
+    while(this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+      this.hash = this.calculateHash();
+    }
+    
+    console.log("Block mined: " + this.hash);
+  }
 }
+
 
 class Blockchain {
   constructor() {
@@ -56,5 +65,9 @@ marcinCoin.addBlock(new Block(1, "10/01/2018", { amount: 4}));
 marcinCoin.addBlock(new Block(2, "17/01/2018", { amount: 100}));
 
 console.log("Is blockchain valid? " + marcinCoin.isChainValid());
+console.log(JSON.stringify(marcinCoin, null, 4));
 
-//console.log(JSON.stringify(marcinCoin, null, 4));
+
+marcinCoin.chain[1].data = { amount: 1000 };
+console.log("Is blockchain valid? " + marcinCoin.isChainValid());
+console.log(JSON.stringify(marcinCoin, null, 4));
