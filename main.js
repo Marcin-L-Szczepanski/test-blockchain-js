@@ -16,7 +16,7 @@ class Block {
 
 class Blockchain {
   constructor() {
-    this.chain = [this.createGenesisBlock];    // array of blocks
+    this.chain = [this.createGenesisBlock()];    // array of blocks
   }
   
   createGenesisBlock() {
@@ -24,7 +24,7 @@ class Blockchain {
   }
   
   getLatestBlock() {
-    return this.chain(this.chain.length - 1);
+    return this.chain[this.chain.length - 1];
   }
   
   addBlock(newBlock) {
@@ -33,3 +33,9 @@ class Blockchain {
     this.chain.push(newBlock);
   }
 }
+
+let marcinCoin = new Blockchain();
+marcinCoin.addBlock(new Block(1, "10/01/2018", { amount: 4}));
+marcinCoin.addBlock(new Block(1, "17/01/2018", { amount: 1000}));
+
+console.log(JSON.stringify(marcinCoin, null, 4));
