@@ -23,16 +23,16 @@ class Block {
 }
 ```
 .calculateHash() method calculates and returns hash for the current block.
-
-For creating hash we can use library called ['crypto-js'](https://www.npmjs.com/package/crypto-js).
+```javascript
+calculateHash() {
+  return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
+                }
+```
+SHA256 function isn't available in JavaScript by default.
+We need to import a library to use SHA256 hashing function called ['crypto-js'](https://www.npmjs.com/package/crypto-js).
 At the top of the script we need to import and assign the SHA256 hashing function:
 ```javascript
 const SHA256 = require('crypto-js/sha256');
 
 ```
 
-```javascript
-  calculateHash() {
-    return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
-  }
-```
