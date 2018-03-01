@@ -8,7 +8,7 @@ Defining what a block in a blockchain looks like by creating class called Block.
 Constructor for class Block receives properties:
 - index - where the blocks sits on the chain (optional)
 - timestamp - when the block was created
-- data - e.g. details for transactions (how much money was transfered, how was the sender and receiver)
+- data - e.g. details for transactions (how much money was transfered, who was the sender and receiver)
 - previous hash - string that contains the hash of the block before the current one. It ensures integrity of the blockchain (empty string by default)
 
 ```javascript
@@ -22,8 +22,8 @@ class Block {
   }
 }
 ```
-What is the .calculateHash() method?
-
+.calculateHash() method calculates hash for the current blog
+For creating hash we can use library called ['crypto-js'](https://www.npmjs.com/package/crypto-js).
 
 ```javascript
   calculateHash() {
