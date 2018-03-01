@@ -22,8 +22,13 @@ class Block {
   }
 }
 ```
-.calculateHash() method calculates hash for the current blog
+.calculateHash() method calculates and returns hash for the current blog
 For creating hash we can use library called ['crypto-js'](https://www.npmjs.com/package/crypto-js).
+At the top of the script we need to import and assign the SHA256 hashing function:
+```javascript
+const SHA256 = require('crypto-js/sha256');
+
+```
 
 ```javascript
   calculateHash() {
