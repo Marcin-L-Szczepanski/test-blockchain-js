@@ -9,15 +9,16 @@ Constractor for class Block receives properties Each Block has:
 - index - where the blocks sits on the chain (optional)
 - timestamp - when the block was created
 - data - e.g. details for transactions (how much money was transfered, how was the sender and receiver)
-- previous hash - string that contains the hash of the block before the current one
+- previous hash - string that contains the hash of the block before the current one (empty string by default)
 
 ```javascript
 class Block {
-  constructor (index, timestamp, data, previousHash) {
+  constructor (index, timestamp, data, previousHash = '') {
     this.index = index;
     this.timestamp = timestamp;
     this.data = data;
     this.previousHash = previousHash;
+    this.hash = '';
   }
 }
 ```
