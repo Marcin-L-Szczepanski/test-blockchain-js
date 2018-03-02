@@ -5,12 +5,12 @@ One Paragraph of project description goes here
 ### Block
 
 Defining what a block in a blockchain looks like by creating class called Block.
+Class Block has 5 parameters defined in the constructor and one method `calculateHash()`.
 Constructor for class Block receives properties:
 - index - where the blocks sits on the chain (optional)
 - timestamp - when the block was created
 - data - e.g. details for transactions (how much money was transfered, who was the sender and receiver)
 - previous hash - string that contains the hash of the block before the current one. It ensures integrity of the blockchain (empty string by default)
-
 ```javascript
 class Block {
   constructor (index, timestamp, data, previousHash = '') {
@@ -28,7 +28,8 @@ calculateHash() {
   return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
 }
 ```
-```javascript JSON.stringify()``` converts a JavaScript object to a JSON string. The opposite method is `JSON.parse()`, which converts a JSON string to a JavaScript object.
+`JSON.stringify()` converts a JavaScript object to a JSON string. The opposite method is `JSON.parse()`, which converts a JSON string to a JavaScript object.
+?? How does .toString() work?
 
 SHA256 function isn't available in JavaScript by default.
 We need to import a library to use SHA256 hashing function called ['crypto-js'](https://www.npmjs.com/package/crypto-js).
@@ -38,3 +39,13 @@ const SHA256 = require('crypto-js/sha256');
 
 ```
 
+### Blockchain
+
+Another class describes a blockchain.
+The constructor is responsible for initializing the blockchain.
+It has one parameter `this.chain = []`, which is an array of blocks. 
+First block on a blockchain is called 'genesis block' and it should be added manually, which will be done by a method `createGenesisBlock()`:
+```javascript
+createGenesisBlock() {
+  return new Block("01/01/2018", "Genesis block", "0");
+}
