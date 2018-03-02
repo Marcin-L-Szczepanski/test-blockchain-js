@@ -28,7 +28,8 @@ calculateHash() {
   return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
 }
 ```
-`JSON.stringify()` converts a JavaScript object to a JSON string. The opposite method is `JSON.parse()`, which converts a JSON string to a JavaScript object.
+```javascript JSON.stringify()``` converts a JavaScript object to a JSON string. The opposite method is `JSON.parse()`, which converts a JSON string to a JavaScript object.
+
 SHA256 function isn't available in JavaScript by default.
 We need to import a library to use SHA256 hashing function called ['crypto-js'](https://www.npmjs.com/package/crypto-js).
 At the top of the script we need to import and assign the SHA256 hashing function:
