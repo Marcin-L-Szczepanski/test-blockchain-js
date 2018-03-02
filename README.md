@@ -1,6 +1,6 @@
 # Understanding blockchain by creating a blockchain in JavaScript
 
-One Paragraph of project description goes here
+Project describtion
 
 ## Main classes
 The applications has three classes:
@@ -59,7 +59,7 @@ The Blockchain class has 6 methods:
 - `getBalanceOfAddress(address)`
 - `isChainValid()`
 
-#### 
+#### `createGenesisBlock()`
 First block on a blockchain is called 'genesis block' and it should be added manually, which will be done by a method `createGenesisBlock()`:
 ```javascript
 createGenesisBlock() {
@@ -67,3 +67,5 @@ createGenesisBlock() {
 }
 ```
 It returns a new object Block with properties passed as arguments (timestamp, transactions, previous block).
+
+#### getLatestBlock()
