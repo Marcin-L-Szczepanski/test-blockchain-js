@@ -2,6 +2,12 @@
 
 One Paragraph of project description goes here
 
+## Main classes
+The applications has three classes:
+- `Transaction`
+- `Block`
+- `Blockchain`
+
 ### Block
 
 Defining what a block in a blockchain looks like by creating class called Block.
