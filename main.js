@@ -9,9 +9,9 @@ class Transaction {
 }
 
 class Block {
-  constructor(timestamp, transaactions, previousHash = '') {
+  constructor(timestamp, transactions, previousHash = '') {
     this.timestamp = timestamp;
-    this.transactions = transaction;
+    this.transactions = transactions;
     this.previousHash = previousHash;
     this.hash = this.calculateHash();
     this.nonce = 0;
@@ -102,7 +102,18 @@ class Blockchain {
 
 let marcinCoin = new Blockchain();
 
+marcinCoin.createTransaction(new Transaction('address1', 'address2', 100));
+marcinCoin.createTransaction(new Transaction('address2', 'address1', 50));
 
+console.log('\nStarting new miner...');
+marcinCoin.minePendingTransactions('marcin-address');
+
+console.log('\nBalance of marcin is: ', marcinCoin.getBalanceOfAddress('marcin-address'));
+
+console.log('\nStarting new miner...');
+marcinCoin.minePendingTransactions('marcin-address');
+
+console.log('\nBalance of marcin is: ', marcinCoin.getBalanceOfAddress('marcin-address'));
 /*
 console.log("Mining block 1...");
 marcinCoin.addBlock(new Block(1, "10/01/2018", { amount: 4}));
