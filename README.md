@@ -1,6 +1,6 @@
 # Understanding blockchain by creating a blockchain in JavaScript
 
-Project describtion
+Project description
 
 ## Main classes
 The applications has three classes:
@@ -68,4 +68,4 @@ createGenesisBlock() {
 ```
 It returns a new object Block with properties passed as arguments (timestamp, transactions, previous block).
 
-#### getLatestBlock()
+#### `getLatestBlock()`
