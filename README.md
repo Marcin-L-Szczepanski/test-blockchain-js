@@ -44,6 +44,14 @@ const SHA256 = require('crypto-js/sha256');
 Another class describes a blockchain.
 The constructor is responsible for initializing the blockchain.
 It has one parameter `this.chain = []`, which is an array of blocks. 
+
+The Blockchain class has 6 methods:
+- `createGenesisBlock()`
+- `getLatestBlock()`
+- `minePendingTransactions(miningRewardAddress)`
+- `createTransaction(transaction)`
+- `getBalanceOfAddress(address)`
+- `isChainValid()`
 First block on a blockchain is called 'genesis block' and it should be added manually, which will be done by a method `createGenesisBlock()`:
 ```javascript
 createGenesisBlock() {
