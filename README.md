@@ -52,7 +52,7 @@ The constructor is responsible for initializing the blockchain.
 It has one parameter `this.chain = [this.createGenesisBlock()]`, which is an array of blocks with the Genesis block created when the blockchain is initialized.
 
 The Blockchain class has 6 methods:
-- `createGenesisBlock()`
+- [`createGenesisBlock()`](#`createGenesisBlock()`)
 - `getLatestBlock()`
 - `minePendingTransactions(miningRewardAddress)`
 - `createTransaction(transaction)`
