@@ -12,8 +12,6 @@ The applications has three classes:
 
 Defining what a block in a blockchain looks like by creating class called Block.
 
-Class Block has 5 parameters defined in the constructor and two methods `calculateHash()` and `mineBlock(difficulty)`.
-
 There are 5 elements in a block:
 - index - position of a block in the chain
 - nonce - a number that is being changed in the process of mining in order to find a valid hash
@@ -21,6 +19,8 @@ There are 5 elements in a block:
 - timestamp - when the block was created
 - hash - string that contains the hash of the current block
 - previous hash - string that contains the hash of the block before the current one. It ensures integrity of the blockchain
+
+Class Block has 5 parameters defined in the constructor and two methods `calculateHash()` and `mineBlock(difficulty)`.
 
 Constructor for class Block receives arguments for index, timestamp, data and previous hash:
 ```javascript
