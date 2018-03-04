@@ -49,10 +49,11 @@ const SHA256 = require('crypto-js/sha256');
 ```javascript
 mineBlock(difficulty) {
   while(this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
-  this.hash = this.calculateHash();
-                                                                                 this.nonce++;
-                                                                                }
-                       ```
+    this.hash = this.calculateHash();
+    this.nonce++;
+  }
+}
+```
 
 ### Blockchain
 
