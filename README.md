@@ -16,7 +16,7 @@ Class Block has 5 parameters defined in the constructor and two methods `calcula
 
 There are 5 elements in a block:
 - index - position of a block in the chain
-- nonce - a numer that is being changed in the process of mining in order to find a valid hash
+- nonce - a number that is being changed in the process of mining in order to find a valid hash
 - data - e.g. details for transactions (how much money was transfered, who was the sender and receiver)
 - timestamp - when the block was created
 - hash - string that contains the hash of the current block
@@ -27,7 +27,7 @@ Constructor for class Block receives arguments for index, timestamp, data and pr
 class Block {
   constructor (index, timestamp, data, previousHash = '') {
     this.index = index;
-    this.nonce = nonce;
+    this.nonce = 0;
     this.timestamp = timestamp;
     this.data = data;
     this.previousHash = previousHash;
@@ -45,7 +45,7 @@ class Block {
 .calculateHash() method calculates and returns SHA256 hash for the current block, i.e. its index, nonce, transactions, timestamp and previous hash.
 ```javascript
 calculateHash() {
-  return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
+  return SHA256(this.index + this.nonce + this.timestamp + JSON.stringify(this.data) + this.previousHash).toString();
 }
 ```
 `JSON.stringify()` converts a JavaScript object to a JSON string. The opposite method is `JSON.parse()`, which converts a JSON string to a JavaScript object.
@@ -69,7 +69,7 @@ For example, instead of generating any hash, the blockchain may require that a h
 Of course, we cannot change block's elements such as index, timestamp, data or previous hash to adjust the hash to the requirements. 
 The only element that can be changed is nonce. We can try with a nonce with a value of 1 and try to calculate hash, if it doesn't return a hash with the required number of zeros, we can try with a nonce equals 2, then 3, then 4... until we find a nonce that returns a valid hash with the required number of zeros in the beginning. 
 
-The function takes a parameter 'difficulty' which is a number of zeros required in the beginning of hash. 
+The function takes a parameter called 'difficulty' which is a number of zeros required in the beginning of hash. 
 Then it checks if the characters from index 0 to index equal to argument passed to the function as 'difficulty' are all equal 0. If not, nonce is increased by one.
 ```javascript
 mineBlock(difficulty) {
@@ -84,7 +84,7 @@ mineBlock(difficulty) {
 
 Another class describes a blockchain.
 The constructor is responsible for initializing the blockchain.
-It has one property `this.chain = [this.createGenesisBlock()]`, which is an array of blocks with the Genesis block created when the blockchain is initialized.
+It has two properties: `this.chain = [this.createGenesisBlock()]`, which is an array of blocks with the Genesis block created when the blockchain is initialized, and  `this.difficulty`, which sets the difficulty level for mining.
 
 The Blockchain class has 6 methods:
 - [`createGenesisBlock()`](#creategenesisblock)
