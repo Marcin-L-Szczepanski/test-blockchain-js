@@ -11,7 +11,9 @@ The applications has three classes:
 ### Block
 
 Defining what a block in a blockchain looks like by creating class called Block.
+
 Class Block has 5 parameters defined in the constructor and two methods `calculateHash()` and `mineBlock(difficulty)`.
+
 Constructor for class Block receives properties:
 - index - where the blocks sits on the chain (optional)
 - timestamp - when the block was created
@@ -25,6 +27,12 @@ class Block {
     this.data = data;
     this.previousHash = previousHash;
     this.hash = this.calculateHash();
+  }
+  calculateHash() {
+    (...)
+  }
+  mineBlock() {
+    (...)
   }
 }
 ```
