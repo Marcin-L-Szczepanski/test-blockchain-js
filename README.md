@@ -28,7 +28,7 @@ class Block {
   }
 }
 ```
-.calculateHash() method calculates and returns SHA256 hash for the current block.
+.calculateHash() method calculates and returns SHA256 hash for the current block, i.e. its index, nonce, transactions, timestamp and previous hash.
 ```javascript
 calculateHash() {
   return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
@@ -49,12 +49,12 @@ const SHA256 = require('crypto-js/sha256');
 
 Another class describes a blockchain.
 The constructor is responsible for initializing the blockchain.
-It has one parameter `this.chain = [this.createGenesisBlock()]`, which is an array of blocks with the Genesis block created when the blockchain is initialized.
+It has one property `this.chain = [this.createGenesisBlock()]`, which is an array of blocks with the Genesis block created when the blockchain is initialized.
 
 The Blockchain class has 6 methods:
 - [`createGenesisBlock()`](#creategenesisblock)
-- `getLatestBlock()`
-- `minePendingTransactions(miningRewardAddress)`
+- [`getLatestBlock()`](#getlatestblock)
+-   `minePendingTransactions(miningRewardAddress)`
 - `createTransaction(transaction)`
 - `getBalanceOfAddress(address)`
 - `isChainValid()`
@@ -66,6 +66,36 @@ createGenesisBlock() {
   return new Block("01/01/2018", "Genesis block", "0");
 }
 ```
-It returns a new object Block with properties passed as arguments (timestamp, transactions, previous block).
+It returns a new Block object with properties passed as arguments (timestamp, transactions, previous block).
 
 #### `getLatestBlock()`
+It returns the lastest block in the chain, i.e. the last element in the array.
+```javascript
+getLatestBlock() {
+  return this.chain[this.chain.length - 1];
+}
+```
+
+One of the blockchain's features is immutability. It means that once a block is added it cannot be changed without invalidating with the rest of the chain.
+Before adding the new block on to the chain, it needs to be verified whether it's valid.
+#### `isChainValid()`
+```javascript
+isChainValid() {
+  for(let i = 1; i < this.chain.length; i++) {
+    const currentBlock = this.chain[i];
+    const previousBLock = this.chain[i - 1];
+      if (currentBlock.hash !== currentBlock.calculateHash()) {
+        return false;
+      }
+      if (currentBlock.previousHash !== previousBLock.hash) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+New block needs to be added to the chain. Basically, it could be done by 1) assigning the value of the latest block's hash to the 'previousHash' property of the current block, 2) calculating hash for the current block's 'hash' property and 3) pushing the new block to the chain.
+
+However, there is more checks that need to be done before pushing the new block on to the chain.
+
+#### `minePendingTransactions(miningRewardAddress)`
