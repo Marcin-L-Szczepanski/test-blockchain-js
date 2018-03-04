@@ -79,6 +79,11 @@ getLatestBlock() {
 One of the blockchain's features is immutability. It means that once a block is added it cannot be changed without invalidating with the rest of the chain.
 Before adding the new block on to the chain, it needs to be verified whether it's valid.
 #### `isChainValid()`
+It returns true if the block is valid or false if something is wrong.
+In order to verify the chain's integrity, we need to loop through the entire chain starting from the second block (we don't need to check the genesis block).
+We need to test:
+1) If hash of current block is correct - if the value of hash property is equal to the hashing result of the actual content of the current block (recalculation using calculateHash() method)
+2) If current block points correctly to previous block's hash - if the value of previousHash property of the current block is equal to the value of hash property of the previous block
 ```javascript
 isChainValid() {
   for(let i = 1; i < this.chain.length; i++) {
@@ -93,6 +98,8 @@ isChainValid() {
     }
     return true;
   }
+```
+
 
 New block needs to be added to the chain. Basically, it could be done by 1) assigning the value of the latest block's hash to the 'previousHash' property of the current block, 2) calculating hash for the current block's 'hash' property and 3) pushing the new block to the chain.
 
