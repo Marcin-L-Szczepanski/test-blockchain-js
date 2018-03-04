@@ -11,7 +11,7 @@ The applications has three classes:
 ### Block
 
 Defining what a block in a blockchain looks like by creating class called Block.
-Class Block has 5 parameters defined in the constructor and one method `calculateHash()`.
+Class Block has 5 parameters defined in the constructor and two methods `calculateHash()` and `mineBlock(difficulty)`.
 Constructor for class Block receives properties:
 - index - where the blocks sits on the chain (optional)
 - timestamp - when the block was created
@@ -28,6 +28,7 @@ class Block {
   }
 }
 ```
+#### `calculateHash()`
 .calculateHash() method calculates and returns SHA256 hash for the current block, i.e. its index, nonce, transactions, timestamp and previous hash.
 ```javascript
 calculateHash() {
@@ -42,8 +43,16 @@ We need to import a library to use SHA256 hashing function called ['crypto-js'](
 At the top of the script we need to import and assign the SHA256 hashing function:
 ```javascript
 const SHA256 = require('crypto-js/sha256');
-
 ```
+
+#### `mineBlock(difficulty)`
+```javascript
+mineBlock(difficulty) {
+  while(this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+  this.hash = this.calculateHash();
+                                                                                 this.nonce++;
+                                                                                }
+                       ```
 
 ### Blockchain
 
@@ -99,10 +108,15 @@ isChainValid() {
     return true;
   }
 ```
-
+If something will be changed in one of the existing blocks, the method will return false for that block and all the following blocks.
+The problem remains that if you recalculate hash for the changed block and all after that and the chain will be valid.
 
 New block needs to be added to the chain. Basically, it could be done by 1) assigning the value of the latest block's hash to the 'previousHash' property of the current block, 2) calculating hash for the current block's 'hash' property and 3) pushing the new block to the chain.
 
 However, there is more checks that need to be done before pushing the new block on to the chain.
+Blockchain needs to have proof-of-work process called mining. You have to prove that you put enough computer power into making a new block. 
+
+
+
 
 #### `minePendingTransactions(miningRewardAddress)`
