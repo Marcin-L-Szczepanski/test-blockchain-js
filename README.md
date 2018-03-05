@@ -11,7 +11,10 @@ The applications has three classes:
 ### Transactions
 
 Defining what a transaction looks like by creating class called Transactions.
-Constructor for class Block receives arguments for address from which the transaction is received, address where the transactions is sent and the amounts:
+
+Class Transactions has 3 parameters defined in the constructor.
+
+Constructor receives arguments for address from which the transaction is received, address where the transactions is sent and the amounts:
 ```javascript
 class Transaction {
   constructor (fromAddress, toAddress, amount) {
@@ -97,7 +100,11 @@ mineBlock(difficulty) {
 
 Another class describes a blockchain.
 The constructor is responsible for initializing the blockchain.
-It has two properties: `this.chain = [this.createGenesisBlock()]`, which is an array of blocks with the Genesis block created when the blockchain is initialized, and  `this.difficulty`, which sets the difficulty level for mining.
+It has 4 properties: 
+- `this.chain = [this.createGenesisBlock()]` - an array of blocks with the Genesis block created when the blockchain is initialized,
+- `this.difficulty` - sets the difficulty level for mining,
+- `this.pendingTransactions = []` - an array temporarily containing all the transactions that are made in between blocks
+- `this.miningReward` - controls how much coins the miners get as a reward when they successfully mine a new block
 
 The Blockchain class has 6 methods:
 - [`createGenesisBlock()`](#creategenesisblock)
