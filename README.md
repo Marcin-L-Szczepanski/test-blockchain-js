@@ -4,7 +4,7 @@ Project description
 
 ## Main classes
 The applications has three classes:
-- `Transaction`
+- [`Transaction`](#transactions)
 - [`Block`](#block)
 - [`Blockchain`](#blockchain)
 
@@ -128,6 +128,22 @@ It returns the lastest block in the chain, i.e. the last element in the array.
 ```javascript
 getLatestBlock() {
   return this.chain[this.chain.length - 1];
+}
+```
+
+#### `minePendingTransactions(miningRewardAddress)`
+Method creating a new block.
+```javascript
+minePendingTransactions(miningRewardAddress) {
+  let block = new Block(Date.now(), this.pendingTransactions);
+  block.mineBlock(this.difficulty);
+
+  console.log("Block successfully mined!");
+  this.chain.push(block);
+
+  this.pendingTransactions = [
+    new Transaction(null, miningRewardAddress, this.miningReward)
+  ];
 }
 ```
 
