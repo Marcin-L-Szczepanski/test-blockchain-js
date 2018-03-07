@@ -114,6 +114,25 @@ console.log('\nStarting new miner...');
 marcinCoin.minePendingTransactions('marcin-address');
 
 console.log('\nBalance of marcin is: ', marcinCoin.getBalanceOfAddress('marcin-address'));
+console.log(JSON.stringify(marcinCoin, null, 4));
+
+/*+
+
+
+
+console.log('\nStarting new miner...');
+marcinCoin.minePendingTransactions('marcin-address');
+
+console.log('\nBalance of marcin is: ', marcinCoin.getBalanceOfAddress('marcin-address'));
+
+console.log('\nStarting new miner...');
+marcinCoin.minePendingTransactions('marcin-address');
+
+console.log('\nBalance of marcin is: ', marcinCoin.getBalanceOfAddress('marcin-address'));
+
+console.log(SHA256("abc"));
+*/
+
 /*
 console.log("Mining block 1...");
 marcinCoin.addBlock(new Block(1, "10/01/2018", { amount: 4}));

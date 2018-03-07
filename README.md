@@ -184,9 +184,9 @@ getBalanceOfAddress(address) {
 }
 ```
 
+#### `isChainValid()`
 One of the blockchain's features is immutability. It means that once a block is added it cannot be changed without invalidating with the rest of the chain.
 Before adding the new block on to the chain, it needs to be verified whether it's valid.
-#### `isChainValid()`
 It returns true if the block is valid or false if something is wrong.
 In order to verify the chain's integrity, we need to loop through the entire chain starting from the second block (we don't need to check the genesis block).
 We need to test:
