@@ -29,7 +29,6 @@ class Transaction {
 Defining what a block in a blockchain looks like by creating class called Block.
 
 There are 5 elements in a block:
-- index - position of a block in the chain
 - nonce - a number that is being changed in the process of mining in order to find a valid hash
 - transactions - e.g. details for transactions (how much money was transfered, who was the sender and receiver)
 - timestamp - when the block was created
@@ -38,11 +37,10 @@ There are 5 elements in a block:
 
 Class Block has 5 parameters defined in the constructor and two methods `calculateHash()` and `mineBlock(difficulty)`.
 
-Constructor for class Block receives arguments for index, timestamp, transacations and previous hash:
+Constructor for class Block receives arguments for timestamp, transacations and previous hash:
 ```javascript
 class Block {
-  constructor (index, timestamp, transactions, previousHash = '') {
-    this.index = index;
+  constructor (timestamp, transactions, previousHash = '') {
     this.nonce = 0;
     this.timestamp = timestamp;
     this.transactions = transactions;
@@ -58,10 +56,10 @@ class Block {
 }
 ```
 #### `calculateHash()`
-.calculateHash() method calculates and returns SHA256 hash for the current block, i.e. its index, nonce, transactions, timestamp and previous hash.
+.calculateHash() method calculates and returns SHA256 hash for the current block, i.e. its nonce, transactions, timestamp and previous hash.
 ```javascript
 calculateHash() {
-  return SHA256(this.index + this.nonce + this.timestamp + JSON.stringify(this.transactions) + this.previousHash).toString();
+  return SHA256(this.nonce + this.timestamp + JSON.stringify(this.transactions) + this.previousHash).toString();
 }
 ```
 `JSON.stringify()` converts a JavaScript object to a JSON string. The opposite method is `JSON.parse()`, which converts a JSON string to a JavaScript object.
@@ -82,7 +80,7 @@ However, with the modern computers, blocks could be added on to the blockchain i
 To prevent these issues, blockchain needs to have proof-of-work meachanism called mining. It requires a prove that a miner put enough computer power into making a new block.
 For example, instead of generating any hash, the blockchain may require that a hash must start with 0. That makes finding a valid hash more difficult and requires more computer power. Since computers get faster over time, they will require less time to create a new block. To compensate that, the difficulty needs to be increased. It can be done by requiring another zero in the beginning.
 
-Of course, we cannot change block's elements such as index, timestamp, transactions or previous hash to adjust the hash to the requirements. 
+Of course, we cannot change block's elements such as timestamp, transactions or previous hash to adjust the hash to the requirements. 
 The only element that can be changed is nonce. We can try with a nonce with a value of 1 and try to calculate hash, if it doesn't return a hash with the required number of zeros, we can try with a nonce equals 2, then 3, then 4... until we find a nonce that returns a valid hash with the required number of zeros in the beginning. 
 
 The function takes a parameter called 'difficulty' which is a number of zeros required in the beginning of hash. 
@@ -109,7 +107,7 @@ It has 4 properties:
 The Blockchain class has 6 methods:
 - [`createGenesisBlock()`](#creategenesisblock)
 - [`getLatestBlock()`](#getlatestblock)
--   `minePendingTransactions(miningRewardAddress)`
+- [`minePendingTransactions(miningRewardAddress)`](#minependingtransactionsminingrewardaddress)
 - `createTransaction(transaction)`
 - `getBalanceOfAddress(address)`
 - `isChainValid()`
@@ -132,7 +130,10 @@ getLatestBlock() {
 ```
 
 #### `minePendingTransactions(miningRewardAddress)`
-Method creating a new block.
+'miningRewardAddress' is a wallet address of a miner who created the block.
+
+This method creates a new block, adds pending transaction to the new block, mines the block and add the new block to the blockchain.
+In the end it resets the pending transaction array and creates new transaction to give the miner their reward.
 ```javascript
 minePendingTransactions(miningRewardAddress) {
   let block = new Block(Date.now(), this.pendingTransactions);
