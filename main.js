@@ -50,6 +50,7 @@ class Blockchain {
   
   minePendingTransactions(miningRewardAddress) {
     let block = new Block(Date.now(), this.pendingTransactions);
+    block.previousHash = this.getLatestBlock().hash;
     block.mineBlock(this.difficulty);
     
     console.log("Block successfully mined!");
@@ -80,6 +81,20 @@ class Blockchain {
     }
     
     return balance;
+  }
+  
+  howManyTransactions(address) {
+    let numberOfTransactions = 0;
+
+    for(const block of this.chain) {
+      for(const trans of block.transactions) {
+        if (trans.fromAdress === address || trans.toAddress === address) {
+          numberOfTransactions++;
+        }
+      }
+    }
+
+    return numberOfTransactions;
   }
   
   isChainValid() {
@@ -113,9 +128,15 @@ console.log('\nBalance of marcin is: ', marcinCoin.getBalanceOfAddress('marcin-a
 console.log('\nStarting new miner...');
 marcinCoin.minePendingTransactions('marcin-address');
 
+console.log('\nMarcin did : ', marcinCoin.howManyTransactions('marcin-address'),' transactions');
 console.log('\nBalance of marcin is: ', marcinCoin.getBalanceOfAddress('marcin-address'));
+console.log('\nAddress1 : ', marcinCoin.howManyTransactions('address1'),' transactions');
+console.log('\nBalance of address1 is: ', marcinCoin.getBalanceOfAddress('address1'));
+console.log('\nAddress2 did : ', marcinCoin.howManyTransactions('address2'),' transactions');
+console.log('\nBalance of address2 is: ', marcinCoin.getBalanceOfAddress('address2'));
 console.log(JSON.stringify(marcinCoin, null, 4));
-
+console.log(marcinCoin.chain.length);
+  
 /*+
 
 

@@ -137,6 +137,7 @@ In the end it resets the pending transaction array and creates new transaction t
 ```javascript
 minePendingTransactions(miningRewardAddress) {
   let block = new Block(Date.now(), this.pendingTransactions);
+  block.previousHash = this.getLatestBlock().hash;
   block.mineBlock(this.difficulty);
 
   console.log("Block successfully mined!");
