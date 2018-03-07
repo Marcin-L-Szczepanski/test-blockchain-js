@@ -148,6 +148,42 @@ minePendingTransactions(miningRewardAddress) {
 }
 ```
 
+#### `createTransaction(transaction)`
+This method receives transaction and add it to pending transactions array.
+```javascript
+createTransaction(transaction) {
+  this.pendingTransactions.push(transaction);
+}
+```
+#### `getBalanceOfAddress(address)`
+This method checks the balance of an address. 
+
+It needs to go through all the transaction on the blockchain that involve your address and calculate your balance.
+
+It loops over all blocks in the blockchain and then loops over all transations within one block.
+
+Logic:
+- If there is transaction, which has a property 'fromAddress' equal to the address, it means that the address was a sender and the balance needs to be reduced by the amount.
+- If there is transaction, which has a property 'toAddress' equal to the address, it means that the address was a receiver and the balance needs to be increased by the amount.
+```javascript
+getBalanceOfAddress(address) {
+  let balance = 0;
+
+  for(const block of this.chain) {
+    for(const trans of block.transactions) {
+      if (trans.fromAdress === address) {
+        balance -= trans.amount;
+      }
+
+      if (trans.toAddress === address) {
+        balance += trans.amount;
+      }
+    } 
+  }
+  return balance;
+}
+```
+
 One of the blockchain's features is immutability. It means that once a block is added it cannot be changed without invalidating with the rest of the chain.
 Before adding the new block on to the chain, it needs to be verified whether it's valid.
 #### `isChainValid()`
