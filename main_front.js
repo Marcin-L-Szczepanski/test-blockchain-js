@@ -41,7 +41,7 @@ class Blockchain {
   }
   
   createGenesisBlock() {
-    return new Block("01/01/2018", "Genesis block", "0");
+    return new Block("01/01/2018", ["Genesis block"], "0");
   }
   
   getLatestBlock() {
@@ -117,34 +117,37 @@ class Blockchain {
   }
 }
 
-const msg = document.getElementById("msg");
-const transactionButton = document.getElementById("transactionButton");
-const mineButton = document.getElementById("mineButton");
-let i = 1;
-
-transactionButton.addEventListener("click", function() {
+function addTransactions() {
   let fromAddress = document.getElementById("fromAddress").value;
   let toAddress = document.getElementById("toAddress").value;
   let amount = document.getElementById("amount").value;
   marcinCoin.createTransaction(new Transaction(fromAddress, toAddress, amount));
   alert("Transaction Added");
+}
+
+const msg = document.getElementById("msg");
+const transactionButton = document.getElementById("transactionButton");
+const mineButton = document.getElementById("mineButton");
+
+transactionButton.addEventListener("click", function() {
+  addTransactions();
 } , false);
 
 mineButton.addEventListener("click", function() {
+  let miner = document.getElementById("miner").value;
+  let list = document.getElementById("list");
+  list.innerHTML = '';
   alert('\nStarting new miner...');
-  marcinCoin.minePendingTransactions('marcin-address');
-  let status = console.log(JSON.stringify(marcinCoin, null, 4));
+  marcinCoin.minePendingTransactions(miner);
+  let status = '\nThere are: ' + marcinCoin.chain.length + ' blocks in total';
+  console.log(JSON.stringify(marcinCoin, null, 4));
   msg.innerHTML = status;
-  i++;
+  for (let i = 0; i < marcinCoin.chain.length; i++) {
+    list.innerHTML = list.innerHTML + "</br>" + i + ": " + miner + ": " +  marcinCoin.chain[i].hash + " Number of transactions: " + marcinCoin.chain[i].transactions.length;
+  }
 } , false);
 let marcinCoin = new Blockchain();
 
-
-
-
-
-
-document.write('\nBalance of marcin is: ', marcinCoin.getBalanceOfAddress('marcin-address'));
 
 /*
 console.log('\nStarting new miner...');
